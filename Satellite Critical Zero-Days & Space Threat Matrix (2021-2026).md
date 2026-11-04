@@ -1,0 +1,26 @@
+# Critical Commercial & Military Satellite Vulnerability Matrix (2021–2026)
+
+This document provides a structured mapping of high-impact **zero-day, zero-click, RF, ground segment, and space-based operational vulnerabilities** targeting commercial satellite constellations (LEO/GEO), military communications satellites (MILSATCOM), space ground control stations, satellite modems, and TT&C (Telemetry, Tracking, and Command) links.
+
+---
+
+## Vulnerability Overview Table
+
+| Subsystem / Vector | Vulnerability Name & Description | Severity / CVSS | Primary Affected Component | Attack Vector / Execution Context | Mapped Real-World CVE / Standard |
+| :--- | :--- | :---: | :--- | :--- | :--- |
+| **SATCOM Modems / Terminals** | **Viasat / KA-SAT Consumer Terminal Management Wipe**<br>Unauthenticated remote management access exploitation pushing destructive wiper firmware updates across consumer and military ground terminals. | **CRITICAL** <br>`9.8` | Satellite Modems / SurfBeam 2 / Terminal Firmware | **Zero-Click Network Supply Chain:** Remote injection of malicious management commands via compromised VPN/ground control infrastructure. | **CVE-2022-29951** *(AcidRain / KA-SAT Hack)* |
+| **TT&C Link (Space Segment)** | **Telemetry, Tracking & Command (TT&C) Unauthenticated Frame Injection**<br>Bypassing space-link protocol authentication to issue unauthorized spacecraft bus commands (attitude control, thruster firing, payload power). | **CRITICAL** <br>`10.0` | Flight Software / CCSDS Protocol Stack | **Zero-Click RF Uplink:** High-power RF uplink injection sending forged CCSDS frames to satellite transponders causing orbit decay or loss of lock. | **CCSDS 232.0-B-3** / **ECSS-E-ST-70-41C** |
+| **Ground Segment (GCS)** | **Spacecraft Command & Control (C2) Software RCE**<br>Buffer overflow and command injection in ground-station satellite management platforms processing optical or RF telemetry data streams. | **CRITICAL** <br>`9.8` | Ground Control Station C2 Software / NASA COSMOS | **Zero-Click Telemetry RCE:** Malformed telemetry frame returned from space or injected via ground network compromises mission operator workstations. | **CVE-2023-38545** / **CWE-120** |
+| **GNSS Constellations** | **GPS / Galileo Signal Spoofing & Time-Transfer Tampering**<br>Phase-aligned RF spoofing and ephemeris data manipulation that degrades space-based atomic clock synchronization and position solutions. | **HIGH** <br>`8.8` | Space-Based GNSS Receivers / Crosslinks | **Zero-Click RF Deception:** Broad-spectrum RF meaconing causing precise orbit determination (POD) errors and payload desynchronization. | **IEEE P1954** / **GPS / Galileo Spoofing** |
+| **Inter-Satellite Links (ISL)** | **LEO Mega-Constellation Laser/RF Mesh Relay Hijack**<br>Malicious routing frame injection in optical inter-satellite laser links (OISL) causing satellite-to-satellite packet drop or unauthorized interception. | **HIGH** <br>`8.5` | Inter-Satellite Laser / RF Transceivers | **Zero-Click Optical/RF Mesh:** Injection into ad-hoc space mesh protocols forcing global traffic redirection or space-segment denial of service. | **SDA Optical Inter-Satellite Standard** |
+| **In-Orbit Edge Computing** | **Spacecraft Payload Hypervisor Container Escape**<br>Exploiting software-defined satellite (SDS) virtualized containers to break out of tenant payloads and reach primary satellite flight controls. | **CRITICAL** <br>`9.8` | Onboard Processing / Space-Grade Linux/VxWorks | **Zero-Day LPE:** Commercial software payload exploitation pivoting to core bus management and sensor payloads. | **CVE-2024-21626** / **cFS (Core Flight System)** |
+| **Military SATCOM (MILSATCOM)** | **Protected Tactical SATCOM Frequency-Hopping Anti-Jam Bypass**<br>Exploiting timing and cryptographic synchronization flaws in frequency-hopping spread spectrum (FHSS) tactical communications. | **CRITICAL** <br>`9.1` | Transponder DSP / Protected Tactical Waveform | **RF Jamming & Exploitation:** Precision reactive jamming and preamble spoofing neutralizing protected tactical waveforms (PTW). | **MIL-STD-188-165** / **WGS / AEHF Flaws** |
+| **Space Supply Chain** | **Radiation-Hardened Microcontroller / FPGA Trojan**<br>Low-level hardware trojan injected into radiation-hardened (Rad-Hard) ASICs/FPGAs during semiconductor design synthesis. | **CRITICAL** <br>`9.5` | Rad-Hard FPGA / Spacecraft Bus Microcontroller | **Hardware Supply Chain:** Stealthy hardware backdoor activated by specific environmental radiation or RF sequences post-launch. | **FIPS 140-3** / **CWE-1277** |
+
+---
+
+## Key Takeaways & Exploit Vector Trends
+
+1. **Ground-to-Space Dependency:** The vast majority of satellite compromises originate in the ground segment—specifically through unpatched management VPNs, ground control workstations, or satellite modem software updates.
+2. **Transition to Software-Defined Satellites (SDS):** Modern LEO mega-constellations increasingly run Linux or VxWorks onboard containerized processing units, making space assets subject to standard cloud/container breakout vulnerabilities.
+3. **CCSDS Protocol Security Gap:** Legacy satellite fleets frequently rely on unencrypted Consultative Committee for Space Data Systems (CCSDS) protocols for TT&C, allowing adversaries with high-gain ground stations to attempt direct command overrides.

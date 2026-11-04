@@ -1,0 +1,26 @@
+# Critical SCADA, PLC & Industrial Control Systems (ICS) Vulnerability Matrix (2021–2026)
+
+This document provides a structured mapping of high-impact **zero-day, zero-click, network protocol, and logic-level vulnerabilities** targeting Supervisory Control and Data Acquisition (SCADA) systems, Programmable Logic Controllers (PLCs), Human-Machine Interfaces (HMIs), Industrial Safety Instrumented Systems (SIS), and operational technology (OT) infrastructure across critical sectors (power grids, nuclear facilities, and manufacturing).
+
+---
+
+## Vulnerability Overview Table
+
+| Domain / Category | Vulnerability Name & Description | Severity / CVSS | Primary Affected Component | Attack Vector / Execution Context | Mapped Real-World CVE / Standard |
+| :--- | :--- | :---: | :--- | :--- | :--- |
+| **PLC Memory & Runtime** | **CODESYS / MicroLogix Runtime Remote Code Execution**<br>Memory corruption in PLC runtime engines processing malformed engineering workstation payloads or networked control frames. | **CRITICAL** <br>`9.8` | CODESYS Control Runtime / Rockwell / Siemens PLC Engine | **Zero-Click Network RCE:** Direct network injection over Modbus TCP / EtherNet/IP triggering arbitrary code execution on controller CPU. | **CVE-2023-32617** / **CVE-2022-31806** |
+| **Logic & Firmware** | **Ladder Logic Compilation Injection & Stuxnet-Style Bypass**<br>Engineering Workstation (EWS) compromise enabling malicious ladder logic / function block injection bypassing firmware verification. | **CRITICAL** <br>`9.8` | Engineering Workstation / Siemens TIA Portal / RSLogix | **Supply Chain / EWS Vector:** Silent modification of compiled bytecode downloaded to PLC, manipulating I/O states while spoofing telemetry. | **IEC 61131-3** / **PIPEDREAM (Incontroller)** |
+| **ICS Protocols** | **Modbus TCP / S7Comm / DNP3 Unauthenticated Command Injection**<br>Lack of cryptographic authentication in legacy OT protocols allowing unauthorized coil/register writes and emergency shutdowns. | **CRITICAL** <br>`9.1` | Modbus TCP / Siemens S7Comm / DNP3 Stack | **Zero-Click Network Injection:** Man-in-the-Middle (MitM) or direct LAN packet replay altering physical process parameters. | **IEC 62443** / **CVE-2022-29951** |
+| **Safety Systems (SIS)** | **Safety Instrumented System (SIS) Logic Hijack**<br>Logic corruption and emergency shutdown bypass in triplicated safety systems controlling critical process thresholds. | **CRITICAL** <br>`10.0` | Triconex SIS / Yokogawa ProSafe / Safety PLC | **Targeted OT Malware:** Disables physical safety interlocks in chemical/power plants prior to process manipulation. | **TRITON (TRSYS)** / **IEC 61508** |
+| **HMI & SCADA Software** | **HMI Web Server & Graphical Engine Buffer Overflow**<br>Remote code execution in web-based HMIs and SCADA management consoles via crafted HTTP/WebSocket or graphics payloads. | **HIGH** <br>`8.8` | SCADA HMI Web Server / Ignition / Wonderware | **Zero-Click RCE:** Exploiting HMI browser runtimes to obtain domain/system shell access inside OT DMZ networks. | **CVE-2023-28771** / **CVE-2021-35395** |
+| **RTU & Smart Grid** | **Substation Automation DNP3 / IEC 61850 GOOSE Protocol Overflow**<br>Buffer overflow in Remote Terminal Units (RTUs) handling high-speed grid protection and trip signals. | **CRITICAL** <br>`9.8` | Electric Substation RTUs / Relay Controllers | **Zero-Click Network RCE:** Broadcast packet injection causing physical circuit breaker trips or rolling blackout conditions. | **IEC 61850** / **CVE-2023-35078** |
+| **Nuclear / Process Control** | **Turbine Control & Distributed Control System (DCS) Desynchronization**<br>Exploiting clock synchronization (PTP/NTP) and analog sensor conversion loops in nuclear feed water and turbine control systems. | **HIGH** <br>`8.6` | DCS Controllers / PTP Clock Masters / Turbine Governors | **Network / Signal Spoofing:** Altering sensor calibration maps or time-sync flags causing forced turbine trips or valve damage. | **IEEE 1588 (PTP)** / **CVE-2022-38100** |
+| **Fieldbus & Serial** | **Profibus / CANopen Serial Bridge Memory Corruption**<br>Serial-to-Ethernet gateway vulnerabilities allowing pivot from enterprise networks to isolated serial fieldbus rings. | **HIGH** <br>`8.1` | Serial-to-Ethernet OT Gateways / Protocol Translators | **Pivot Exploit:** Injecting raw serial frames into sub-networks to override valve actuators and motor drives. | **CVE-2023-21415** / **CWE-120** |
+
+---
+
+## Key Takeaways & Exploit Vector Trends
+
+1. **Protocol Cryptographic Deficits:** Legacy industrial protocols (Modbus, DNP3, PROFIBUS) lack built-in packet encryption or authentication, allowing any attacker with local network access to issue legitimate-looking write commands to PLCs.
+2. **Engineering Workstation as the Primary Pivot:** Because modern PLCs enforce strict internal memory protections, advanced attackers target the Engineering Workstation (EWS) to compile malicious ladder logic or function blocks that mask physical process changes from HMI monitoring.
+3. **Safety System Targeting (SIS):** Threat actors specifically decouple Safety Instrumented Systems (SIS) from primary control loops, suppressing automated emergency shutdowns before forcing dangerous physical process conditions.

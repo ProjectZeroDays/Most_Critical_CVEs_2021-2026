@@ -18,7 +18,8 @@
 
 ## ▸ Introduction
 
-This repository is a collection of 18 Markdown vulnerability and threat-surface matrices. It is **not limited to Android or mobile devices**: the documents cover consumer and enterprise software, embedded and connected products, industrial environments, vehicles, aircraft, drones, satellites, military systems, and emerging cyber-physical technologies.
+This repository is a collection of 18 Markdown vulnerability and threat-surface matrices. This document cover vulnerabilities found in Android, iOS, macOS, Windows, Linux, IoT, Smart Home, Smart Cameras/Monitors, Smart TVs, Automotive and Connected Vehicles, Commercial and Military Drones, SCADA, PLC, Industrial Control, Commercial and Military Avionics, Military Drones, Tactical UAS, Military Vehicles and Armored Platforms, Military AI Systems, Commercial and Military Satellites, Nanotechnology, Bio-Cyber Interfaces, Military Nanotechnology, Weaponized Nano Systems, Emerging Cyber-Physical Technologies, Industrial Environments, Embedded and Connected Products, and Consumer and Enterprise Software.
+M
 
 Each matrix organizes risks for a technology area, typically describing vulnerability classes or threat scenarios, affected components and systems, attack context, severity where provided, and CVE or standards references where available. Coverage includes both conventional software vulnerabilities and broader operational or physical threat surfaces, such as wireless protocols, firmware, supply chains, sensors, and control systems.
 

@@ -6,7 +6,6 @@
 
 **An indexed, collapsible vulnerability library for Windows, MacOS, Linux, Android, iOS, iPadOS, IoT, Automobiles, Residential/Commercial/Military Drones, Network Infrastructure, Industrial/Power/Nuclear Control Systems, Medical/Weaponized/Military Nano-Swarms, Commercial/Military Aircraft, Personal/Military Vehicles, and Air-Gapped Facilities (NIST 800-172 CMMC L3 enclaves).**
 
-[![Version](https://img.shields.io/badge/PEGASUS-v1.7.1-00ff9c?style=for-the-badge&labelColor=0b0f0c)](.)
 [![Scope](https://img.shields.io/badge/scope-authorized%20red%20team-00c8ff?style=for-the-badge&labelColor=0b0f0c)](.)
 [![Target](https://img.shields.io/badge/target-Android%204.14%E2%80%9316-3ddc84?style=for-the-badge&labelColor=0b0f0c)](.)
 [![Years](https://img.shields.io/badge/window-2021%E2%80%932026-ffd166?style=for-the-badge&labelColor=0b0f0c)](.)
